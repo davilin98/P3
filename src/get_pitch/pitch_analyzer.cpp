@@ -8,14 +8,28 @@ using namespace std;
 
 /// Name space of UPC
 namespace upc {
+  FILE *result;
   void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
-
+    result = fopen("autocorrelation.txt", "w"); 
+    float sizeX = static_cast<float>(x.size());
     for (unsigned int l = 0; l < r.size(); ++l) {
-  		/// \TODO Compute the autocorrelation r[l]
+  	  	/// \TODO Compute the autocorrelation r[l]
+         r[l]=0;
+      for(unsigned int k=0; k<x.size()-l-1; ++k ){
+        r[l]=r[l]+x[k]*x[k+l]; 
+           /* printf("%f\n", x[k]); */
+      }
+      r[l]=r[l]/sizeX;
+      /* printf("%f\n",r[l]); */ 
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
       r[0] = 1e-10; 
+
+    for(unsigned int i=0; i<r.size(); i++){
+      fprintf(result, "%f\n",r[i]);
+    }
+    fclose(result);
   }
 
   void PitchAnalyzer::set_window(Window win_type) {
@@ -27,6 +41,14 @@ namespace upc {
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
+      /*unsigned int N = frameLen; 
+      float v[N];
+      float a = 0.53836, b = 0.46164, pi = 3.1415926535;
+      for(int n = 0; n < N - 1; n++){
+          float coseno = cos(2 * pi * n / (N-1));
+          v[n] = (a - b * coseno);
+       }
+       */
       break;
     case RECT:
     default:
@@ -75,7 +97,16 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-
+  /*bool aux = true;
+  float val = 1;
+  for(iR=r.begin() ; iR !=r.end(); ++iR){
+  val = iR->doSomething();
+    if( val <0 && aux){
+      iRMax = iR;
+      aux = false; 
+    }
+    
+  }*/
     unsigned int lag = iRMax - r.begin();
 
     float pot = 10 * log10(r[0]);
