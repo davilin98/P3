@@ -12,6 +12,9 @@ namespace upc {
 
     for (unsigned int l = 0; l < r.size(); ++l) {
   		/// \TODO Compute the autocorrelation r[l]
+      for (unsigned int k=0; k < x.size()-l-1 ; k++){
+        r[l]=r[l]+(x[k]*x[k+1]*(1/x.size()));
+      }
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
@@ -27,6 +30,7 @@ namespace upc {
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
+
       break;
     case RECT:
     default:
@@ -66,7 +70,7 @@ namespace upc {
     //Compute correlation
     autocorrelation(x, r);
 
-    vector<float>::const_iterator iR = r.begin(), iRMax = iR;
+    vector<float>::const_iterator j,iR = r.begin(), iRMax = iR;
 
     /// \TODO 
 	/// Find the lag of the maximum value of the autocorrelation away from the origin.<br>
@@ -75,14 +79,23 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-
+    for(j=iR+npitch_min ; j<iR+npitch_max; j++){
+      if (iR<j){
+        iRMax=j;        
+      }
+    }
+    
     unsigned int lag = iRMax - r.begin();
+
+    
 
     float pot = 10 * log10(r[0]);
 
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
+    printf("%f\n", r[lag]);
+
 #if 0
     if (r[0] > 0.0F)
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
