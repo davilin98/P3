@@ -119,7 +119,9 @@ int main(int argc, const char *argv[]) {
     filtro[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
   }
 
-f0=filtro;
+f0=filtro; //el convertim amb el filtro mediana.
+
+
   // Write f0 contour into the output file
   ofstream os(output_txt);
   if (!os.good()) {
