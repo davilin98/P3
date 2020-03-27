@@ -15,13 +15,12 @@ namespace upc {
     for (unsigned int l = 0; l < r.size(); ++l) {
   	  	/// \TODO Compute the autocorrelation r[l]
          r[l]=0;
-      for(unsigned int k=0; k < x.size()-l; ++k ){
-        r[l]+=x[k]*x[k+l]; 
-            /*printf("%f\n", x[k]);*/ 
+      for(unsigned int k=0; k<x.size()-l; ++k ){
+        r[l] += x[k]*x[k+l]; 
+            /*printf("%f\n", x[k]);*/
       }
       r[l]=r[l]/sizeX;
      /* printf("%f\n",r[l]);*/ 
-     fprintf(result, "%f\n",r[l]);
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
@@ -42,11 +41,11 @@ namespace upc {
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
+     
       for(unsigned int n = 0; n < frameLen; n++){
           float coseno = cos(2 * pi * n / (frameLen-1));
           window[n] = (a - b * coseno);
        }
-       
       break;
     case RECT:
     default:
@@ -70,7 +69,12 @@ namespace upc {
     /// \TODO Implement a rule to decide whether the sound is voiced or not.
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
-    return true;
+
+    bool unvoiced = true;
+    if(r1norm > 1.9 && pot>-27){
+      unvoiced=false;
+    }
+    return unvoiced;
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -95,18 +99,24 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-  for(iR=r.begin()+npitch_min ; iR !=r.end()+npitch_max; ++iR){
-    if( *iR>*iRMax ){
-      iRMax = iR; 
+
+  for(iR=r.begin()+npitch_min ; iR !=r.begin()+npitch_max; ++iR){
+    if(*iR>*(iRMax+npitch_min)){
+      iRMax= iR;
     }
+  
   }
     unsigned int lag = iRMax - r.begin();
-   /* printf("%f",r[lag]); */
+
+    
+
     float pot = 10 * log10(r[0]);
 
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
+    printf("%f\n", r[lag]);
+
 #if 0
     if (r[0] > 0.0F)
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
