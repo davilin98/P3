@@ -66,7 +66,7 @@ int main(int argc, const char *argv[]) {
   /// central-clipping or low pass filtering may be used.
 
   
-  for (unsigned int i=0; i< x.size(); i++){//es esto
+  for (unsigned int i=0; i< x.size(); i++){
     if (max > x[i]){
       max=x[i];
     }
@@ -86,7 +86,7 @@ int main(int argc, const char *argv[]) {
        x[j]=0;
     } 
 
-  }//i esto
+  }
 
 
   // Iterate for each frame and save values in f0 vector
