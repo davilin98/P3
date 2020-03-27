@@ -66,7 +66,29 @@ int main(int argc, const char *argv[]) {
   /// central-clipping or low pass filtering may be used.
 
   
-  
+  for (unsigned int i=0; i< x.size(); i++){//es esto
+    if (max > x[i]){
+      max=x[i];
+    }
+  }
+
+
+  //apliquem el central-clipping
+  float llindar= 0.0005;
+  for (unsigned int j=0; j<x.size(); j++){
+    x[j]=x[j]/max;      //normalitzem el valor, tindrem valors de -1 a 1 però més elevats.
+
+    if(x[j]>llindar){
+       x[j]= x[j]-llindar;
+    }else if(x[j]<llindar){
+       x[j] += llindar;
+    } else{
+       x[j]=0;
+    } 
+
+  }//i esto
+
+
   // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
   vector<float> f0;
