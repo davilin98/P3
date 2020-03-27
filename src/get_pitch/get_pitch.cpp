@@ -79,6 +79,24 @@ int main(int argc, const char *argv[]) {
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
 
+  //Trobem el minim i el maxim sumem els 3 i restem minim i el maxim i ens queda la mediana.
+
+  float min1, min2, max1, max2;
+  vector<float> filtro;
+
+  for(unsigned int i=0; i < f0.size()-1 ; i++){
+    min1=fmin(f0[i-1],f0[i]);
+    min2=fmin(min1,f0[i+1]);
+
+    max1= fmax(f0[i-1],f0[i]);
+    max2 = fmax(max1,f0[i+1]);
+
+    filtro[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
+  }
+
+f0=filtro; //el convertim amb el filtro mediana.
+
+
   // Write f0 contour into the output file
   ofstream os(output_txt);
   if (!os.good()) {
