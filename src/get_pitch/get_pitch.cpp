@@ -9,6 +9,7 @@
 #include "pitch_analyzer.h"
 
 #include "docopt.h"
+#include "math.h"
 
 #define FRAME_LEN   0.030 /* 30 ms. */
 #define FRAME_SHIFT 0.015 /* 15 ms. */
@@ -64,7 +65,32 @@ int main(int argc, const char *argv[]) {
   /// \TODO
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
+
+  float max=0;
   
+  for (unsigned int i=0; i< x.size(); i++){
+    if (max > x[i]){
+      max=x[i];
+    }
+  }
+
+
+  //apliquem el central-clipping
+  float llindar= 0.0005;
+  for (unsigned int j=0; j<x.size(); j++){
+    x[j]=x[j]/max;      //normalitzem el valor, tindrem valors de -1 a 1 però més elevats.
+
+    if(x[j]>llindar){
+      x[j]= x[j]-llindar;
+    }else if(x[j]<llindar){
+      x[j] += llindar;
+    } else{
+      x[j]=0;
+    }
+
+  }
+
+
   // Iterate for each frame and save values in f0 vector
   vector<float>::iterator iX;
   vector<float> f0;
@@ -73,10 +99,27 @@ int main(int argc, const char *argv[]) {
     f0.push_back(f);
   }
 
+
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
 
+  //Trobem el minim i el maxim sumem els 3 i restem minim i el maxim i ens queda la mediana.
+
+  float min1, min2, max1, max2;
+  vector<float> filtro;
+
+  for(unsigned int i=0; i < f0.size()-1 ; i++){
+    min1=fmin(f0[i-1],f0[i]);
+    min2=fmin(min1,f0[i+1]);
+
+    max1= fmax(f0[i-1],f0[i]);
+    max2 = fmax(max1,f0[i+1]);
+
+    filtro[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
+  }
+
+f0=filtro;
   // Write f0 contour into the output file
   ofstream os(output_txt);
   if (!os.good()) {
