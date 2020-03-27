@@ -15,20 +15,21 @@ namespace upc {
     for (unsigned int l = 0; l < r.size(); ++l) {
   	  	/// \TODO Compute the autocorrelation r[l]
          r[l]=0;
-      for(unsigned int k=0; k<x.size()-l-1; ++k ){
-        r[l]=r[l]+x[k]*x[k+l]; 
-           /* printf("%f\n", x[k]); */
+      for(unsigned int k=0; k < x.size()-l; ++k ){
+        r[l]+=x[k]*x[k+l]; 
+            /*printf("%f\n", x[k]);*/ 
       }
       r[l]=r[l]/sizeX;
-      /* printf("%f\n",r[l]); */ 
+     /* printf("%f\n",r[l]);*/ 
+     fprintf(result, "%f\n",r[l]);
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
       r[0] = 1e-10; 
 
-    for(unsigned int i=0; i<r.size(); i++){
+    /*for(unsigned int i=0; i<r.size(); i++){
       fprintf(result, "%f\n",r[i]);
-    }
+    }*/
     fclose(result);
   }
 
@@ -37,18 +38,15 @@ namespace upc {
       return;
 
     window.resize(frameLen);
-
+    float a = 0.53836, b = 0.46164, pi = 3.1415926535;
     switch (win_type) {
     case HAMMING:
       /// \TODO Implement the Hamming window
-      /*unsigned int N = frameLen; 
-      float v[N];
-      float a = 0.53836, b = 0.46164, pi = 3.1415926535;
-      for(int n = 0; n < N - 1; n++){
-          float coseno = cos(2 * pi * n / (N-1));
-          v[n] = (a - b * coseno);
+      for(unsigned int n = 0; n < frameLen; n++){
+          float coseno = cos(2 * pi * n / (frameLen-1));
+          window[n] = (a - b * coseno);
        }
-       */
+       
       break;
     case RECT:
     default:
@@ -97,18 +95,13 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-  /*bool aux = true;
-  float val = 1;
-  for(iR=r.begin() ; iR !=r.end(); ++iR){
-  val = iR->doSomething();
-    if( val <0 && aux){
-      iRMax = iR;
-      aux = false; 
+  for(iR=r.begin()+npitch_min ; iR !=r.end()+npitch_max; ++iR){
+    if( *iR>*iRMax ){
+      iRMax = iR; 
     }
-    
-  }*/
+  }
     unsigned int lag = iRMax - r.begin();
-
+   /* printf("%f",r[lag]); */
     float pot = 10 * log10(r[0]);
 
     //You can print these (and other) features, look at them using wavesurfer
