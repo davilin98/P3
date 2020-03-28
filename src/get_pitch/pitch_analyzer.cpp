@@ -32,6 +32,7 @@ namespace upc {
     }
     fclose(result);
   }
+  
 
   void PitchAnalyzer::set_window(Window win_type) {
     if (frameLen == 0)
@@ -44,7 +45,7 @@ namespace upc {
       /// \TODO Implement the Hamming window
      
       for(unsigned int n = 0; n < frameLen; n++){
-          float coseno = cos((2 * pi * n )/ (frameLen-1));
+          float coseno = cos((2 * pi * n )/(frameLen-1));
           window[n] = (a - b * coseno);
        }
       break;
@@ -72,12 +73,10 @@ namespace upc {
     ///   or compute and use other ones.
 
    bool unvoiced = false;
-    if(pot>-30 && r1norm > 0.86 && rmaxnorm < 0.15){
+    if(r1norm < 0.895 || pot<-36 || rmaxnorm < 0.3){
       unvoiced=true;
     }
-    
     return unvoiced;
-    
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -102,15 +101,18 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-
-  for(iR=r.begin()+npitch_min ; iR !=r.begin()+npitch_max; ++iR){
-    if(*iR>*(iRMax+npitch_min)){
+  
+ // vector<float>::const_iterator iRef; 
+  iRMax = iR+npitch_min;
+  for(iR=r.begin()+npitch_min ; iR != r.begin()+npitch_max; iR++){
+    if(*iR>*iRMax){
       iRMax= iR;
     }
   
   }
     unsigned int lag = iRMax - r.begin();
 
+    //printf(" %d ",lag);
     
 
     float pot = 10 * log10(r[0]);
@@ -119,7 +121,7 @@ namespace upc {
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
-   /* printf("%f\n", r[lag]);*/
+   
 
    FILE *rnorm= fopen("rnorm.txt","a");
    FILE *rnormmax = fopen("rnormmax.txt","a");

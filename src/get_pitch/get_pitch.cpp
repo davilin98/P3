@@ -103,9 +103,11 @@ int main(int argc, const char *argv[]) {
 
   //Trobem el minim i el maxim sumem els 3 i restem minim i el maxim i ens queda la mediana.
 
- float min1=0, min2=0, max1=0, max2=0;
-  //int sizef0 = static_cast<int>(f0.size());
+ float min1, min2, max1, max2;
   vector<float> filter;
+  /*for(unsigned int i=0; i<f0.size()-1; i++){
+    printf(" %f ",f0[i]);
+  }*/
   filter = f0;
 
    min1=fmin(f0[0],f0[1]);
