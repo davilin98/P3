@@ -10,22 +10,21 @@ using namespace std;
 namespace upc {
   FILE *result;
   void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
-    result = fopen("autocorrelation.txt", "w"); 
-    float sizeX = static_cast<float>(x.size());
+    result = fopen("autocorrelation.txt", "a"); 
+    
     for (unsigned int l = 0; l < r.size(); ++l) {
   	  	/// \TODO Compute the autocorrelation r[l]
          r[l]=0;
-      for(unsigned int k=0; k<x.size()-l; ++k ){
+      for(unsigned int k=0; k<x.size(); ++k ){
         r[l] += x[k]*x[k+l]; 
             /*printf("%f\n", x[k]);*/
       }
-      r[l]=r[l]/sizeX;
+      r[l]=r[l]/r.size();
      /* printf("%f\n",r[l]);*/ 
     }
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
       r[0] = 1e-10; 
-
     for(unsigned int i=0; i<r.size(); i++){
       fprintf(result, "%f\n",r[i]);
     }
@@ -71,7 +70,7 @@ namespace upc {
     ///   or compute and use other ones.
 
     bool unvoiced = true;
-    if(r1norm > 1.9 && pot>-27){
+    if (pot > -30 && r1norm > 0.86 && rmaxnorm < 0.15 ){
       unvoiced=false;
     }
     return unvoiced;
@@ -115,13 +114,22 @@ namespace upc {
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
-    printf("%f\n", r[lag]);
+
+    /*printf("%f\n", r[lag]);*/
+    FILE *rnorm=fopen("rnorm.txt","a");
+    FILE *rnormmax=fopen("rnormmax.txt","a");
+
 
 #if 0
-    if (r[0] > 0.0F)
-      cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
+    if (r[0] > 0.0F){
+       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
+      fprintf(rnorm, "%f\n", r[1]/r[0]);
+      fprintf(rnormmax, "%f\n", r[lag]/r[0]);
+    }
+     
 #endif
-    
+ fclose(rnorm);
+ fclose(rnormmax);
     if (unvoiced(pot, r[1]/r[0], r[lag]/r[0]))
       return 0;
     else

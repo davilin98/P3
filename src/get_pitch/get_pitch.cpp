@@ -69,7 +69,7 @@ int main(int argc, const char *argv[]) {
   float max=0;
   
   for (unsigned int i=0; i< x.size(); i++){
-    if (max > x[i]){
+    if (max < x[i]){
       max=x[i];
     }
   }
@@ -77,7 +77,7 @@ int main(int argc, const char *argv[]) {
 
   //apliquem el central-clipping
   float llindar= 0.0005;
-  for (unsigned int j=0; j<x.size(); j++){
+  for (unsigned int j=0; j < x.size()  ; j++){
     x[j]=x[j]/max;      //normalitzem el valor, tindrem valors de -1 a 1 però més elevats.
 
     if(x[j]>llindar){
@@ -108,8 +108,11 @@ int main(int argc, const char *argv[]) {
 
   float min1, min2, max1, max2;
   vector<float> filtro;
-
-  for(unsigned int i=0; i < f0.size()-1 ; i++){
+  min1=fmin(f0[0],f0[1]);
+  max1=fmax(f0[0],f0[1]);
+  filtro[0]= f0[0]+f0[1]-max1-min1
+  ;
+  for(unsigned int i=1; i < f0.size()-1 ; i++){
     min1=fmin(f0[i-1],f0[i]);
     min2=fmin(min1,f0[i+1]);
 
