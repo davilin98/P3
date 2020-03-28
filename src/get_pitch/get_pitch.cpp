@@ -67,7 +67,7 @@ int main(int argc, const char *argv[]) {
 
   float max =0;
   for (unsigned int i=0; i< x.size(); i++){
-    if (max > x[i]){
+    if (max < x[i]){
       max=x[i];
     }
   }
@@ -104,21 +104,25 @@ int main(int argc, const char *argv[]) {
   //Trobem el minim i el maxim sumem els 3 i restem minim i el maxim i ens queda la mediana.
 
  float min1=0, min2=0, max1=0, max2=0;
-  int sizef0 = static_cast<int>(f0.size());
-  
+  //int sizef0 = static_cast<int>(f0.size());
+  vector<float> filter;
+  filter = f0;
 
-  for( int i=1; i < sizef0-1 ; i++){
+   min1=fmin(f0[0],f0[1]);
+   max1= fmax(f0[0],f0[1]);
+   filter[0]= f0[0]+f0[1]-min1-max1;
+
+  for( unsigned int i=1; i < f0.size()-1 ; i++){
+
     min1=fmin(f0[i-1],f0[i]);
     min2=fmin(min1,f0[i+1]);
-
     max1= fmax(f0[i-1],f0[i]);
     max2 = fmax(max1,f0[i+1]);
-
-    //filtro[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
-    f0[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
-    
+    filter[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2; 
   }
- // f0=filtro; //el convertim amb el filtro mediana.
+
+  f0=filter;
+  //el convertim amb el filtro mediana.
 
 
   // Write f0 contour into the output file
