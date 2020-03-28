@@ -7,7 +7,7 @@
 
 #include "wavfile_mono.h"
 #include "pitch_analyzer.h"
-
+#include "math.h"
 #include "docopt.h"
 
 #define FRAME_LEN   0.030 /* 30 ms. */
@@ -65,7 +65,7 @@ int main(int argc, const char *argv[]) {
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
 
-  
+  float max =0;
   for (unsigned int i=0; i< x.size(); i++){
     if (max > x[i]){
       max=x[i];
@@ -103,20 +103,22 @@ int main(int argc, const char *argv[]) {
 
   //Trobem el minim i el maxim sumem els 3 i restem minim i el maxim i ens queda la mediana.
 
-  float min1, min2, max1, max2;
-  vector<float> filtro;
+ float min1=0, min2=0, max1=0, max2=0;
+  int sizef0 = static_cast<int>(f0.size());
+  
 
-  for(unsigned int i=0; i < f0.size()-1 ; i++){
+  for( int i=1; i < sizef0-1 ; i++){
     min1=fmin(f0[i-1],f0[i]);
     min2=fmin(min1,f0[i+1]);
 
     max1= fmax(f0[i-1],f0[i]);
     max2 = fmax(max1,f0[i+1]);
 
-    filtro[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
+    //filtro[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
+    f0[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
+    
   }
-
-f0=filtro; //el convertim amb el filtro mediana.
+ // f0=filtro; //el convertim amb el filtro mediana.
 
 
   // Write f0 contour into the output file

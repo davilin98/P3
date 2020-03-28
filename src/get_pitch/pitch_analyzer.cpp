@@ -70,11 +70,13 @@ namespace upc {
     /// * You can use the standard features (pot, r1norm, rmaxnorm),
     ///   or compute and use other ones.
 
-    bool unvoiced = true;
-    if(r1norm > 1.9 && pot>-27){
-      unvoiced=false;
+  /*  bool unvoiced = false;
+    if(r1norm <0.895 || pot<-50 || rmaxnorm<0.3){
+      unvoiced=true;
     }
-    return unvoiced;
+    
+    return unvoiced;*/
+    return true; 
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -111,11 +113,12 @@ namespace upc {
     
 
     float pot = 10 * log10(r[0]);
+    printf("%f ",pot);
 
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
-    printf("%f\n", r[lag]);
+   /* printf("%f\n", r[lag]);*/
 
 #if 0
     if (r[0] > 0.0F)
