@@ -34,6 +34,8 @@ Ejercicios básicos
      
 ![](https://github.com/davilin98/P3/blob/Guardia-Linde/pitch.PNG)
 
+> Lo que realizamos en este código es bucar el máximo del primer máximo secundario de la autocorrelación y como tenemos un intervalo en el que buscar, (npitch_min, npitch_max) hemos ido iterando hasta encontrar el máximo absoluto. 
+
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
    
  > Primeramente habíamos decidido unas reglas muy a ojo que nos proporcionaban una detección del 15%. Al observarlo más detalladamente hemos ido cambiando estos valores y hemos finalmente decidido los siguientes valores, bteniendo asi un 90% de detección.
