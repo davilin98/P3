@@ -46,6 +46,8 @@ Ejercicios básicos
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
 
+  
+
   * Utilice el programa `wavesurfer` para analizar las condiciones apropiadas para determinar si un
     segmento es sonoro o sordo. 
 	
@@ -78,7 +80,15 @@ Ejercicios básicos
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
 	 el uso de alternativas de mayor calidad (particularmente Python).
 	 
+	   
+  > Para este apartado realizaremos la detección de pitch para el fichero sb014.wav porque es más corto y se puede observar mejor el resultado.
+  
+  >Por un lado del wavesurfer obtenemos lo siguiente:
+  	
+	![](https://github.com/davilin98/P3/blob/Guardia-Linde/wavesurfer.JPG)
 	
+  >Por otro lado hemos generdo una grafica en MATLAB con los resultados de nuestro programa almacenados en el fichero f0 y hemos obtenido lo siguiente:
+  
 
 
 Ejercicios de ampliación
