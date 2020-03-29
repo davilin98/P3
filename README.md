@@ -35,7 +35,11 @@ Ejercicios básicos
 ![](https://github.com/davilin98/P3/blob/Guardia-Linde/pitch.PNG)
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
-
+   
+ > Primeramente habíamos decidido unas reglas muy a ojo que nos proporcionaban una detección del 15%. Al observarlo más detalladamente hemos ido cambiando estos valores y hemos finalmente decidido los siguientes valores, bteniendo asi un 90% de detección.
+   
+   ![](https://github.com/davilin98/P3/blob/Guardia-Linde/unvoiced.JPG)
+   
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
 
