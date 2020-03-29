@@ -18,6 +18,11 @@ Ejercicios básicos
    * Inserte una gŕafica donde, en un *subplot*, se vea con claridad la señal temporal de un sonido sonoro
      y su periodo de pitch; y, en otro *subplot*, se vea con claridad la autocorrelación de la señal y la
 	 posición del primer máximo secundario.
+	 
+	 ![](https://github.com/davilin98/P3/blob/Guardia-Linde/auto.png)
+	 
+	> Se puede observar que el pico del segundo máximo secundario está situado en 120. Por lo tanto, para calcular el pitch, haríamos fm/r[k] y en este caso es 16000/120 = 133 Hz. 
+	>Para hacer la autocorrelación de la señal, hemos usado una señal de 40ms para evitar estacionariedades, esta señal la hemos obtenido de recortar un audio nuestro en el cual hemos buscado un audio sonoro.
 
 	 NOTA: es más que probable que tenga que usar Python, Octave/MATLAB u otro programa semejante para
 	 hacerlo. Se valorará la utilización de la librería matplotlib de Python.
