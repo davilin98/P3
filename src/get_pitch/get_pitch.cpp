@@ -74,14 +74,14 @@ int main(int argc, const char *argv[]) {
 
 
   //apliquem el central-clipping
-  float llindar= 0.0005;
+  float xth= 0.0005;
   for (unsigned int j=0; j < x.size()  ; j++){
     x[j]=x[j]/max;      //normalitzem el valor, tindrem valors de -1 a 1 però més elevats.
 
-    if(x[j]>llindar){
-       x[j]= x[j]-llindar;
-    }else if(x[j]<llindar){
-       x[j] += llindar;
+    if(x[j]>xth){
+       x[j]= x[j]-xth;
+    }else if(x[j]<xth){
+       x[j] += xth;
     } else{
        x[j]=0;
     } 
@@ -103,9 +103,11 @@ int main(int argc, const char *argv[]) {
 
   //Trobem el minim i el maxim sumem els 3 i restem minim i el maxim i ens queda la mediana.
 
- float min1=0, min2=0, max1=0, max2=0;
-  //int sizef0 = static_cast<int>(f0.size());
+ float min1, min2, max1, max2;
   vector<float> filter;
+  /*for(unsigned int i=0; i<f0.size()-1; i++){
+    printf(" %f ",f0[i]);
+  }*/
   filter = f0;
 
    min1=fmin(f0[0],f0[1]);

@@ -11,7 +11,7 @@ namespace upc {
   FILE *result;
   
   void PitchAnalyzer::autocorrelation(const vector<float> &x, vector<float> &r) const {
-    result = fopen("autocorrelation.txt", "a");
+    /*result = fopen("autocorrelation.txt", "a");*/
     
     for (unsigned int l = 0; l < r.size(); ++l) {
   	  	/// \TODO Compute the autocorrelation r[l]
@@ -26,11 +26,12 @@ namespace upc {
 
     if (r[0] == 0.0F) //to avoid log() and divide zero 
       r[0] = 1e-10; 
-    for(unsigned int i=0; i<r.size(); i++){
+   /* for(unsigned int i=0; i<r.size(); i++){
       fprintf(result, "%f\n",r[i]);
     }
-    fclose(result);
+    fclose(result);*/
   }
+  
 
   void PitchAnalyzer::set_window(Window win_type) {
     if (frameLen == 0)
@@ -43,7 +44,7 @@ namespace upc {
       /// \TODO Implement the Hamming window
      
       for(unsigned int n = 0; n < frameLen; n++){
-          float coseno = cos((2 * pi * n )/ (frameLen-1));
+          float coseno = cos((2 * pi * n )/(frameLen-1));
           window[n] = (a - b * coseno);
        }
       break;
@@ -71,12 +72,10 @@ namespace upc {
     ///   or compute and use other ones.
 
    bool unvoiced = false;
-    if(pot>-30 && r1norm > 0.86 && rmaxnorm < 0.15){
+    if(r1norm < 0.89 || pot<-37 || rmaxnorm < 0.29){
       unvoiced=true;
     }
-    
     return unvoiced;
-    
   }
 
   float PitchAnalyzer::compute_pitch(vector<float> & x) const {
@@ -101,15 +100,18 @@ namespace upc {
 	///    - The lag corresponding to the maximum value of the pitch.
     ///	   .
 	/// In either case, the lag should not exceed that of the minimum value of the pitch.
-
-  for(iR=r.begin()+npitch_min ; iR !=r.begin()+npitch_max; ++iR){
-    if(*iR>*(iRMax+npitch_min)){
+  
+ // vector<float>::const_iterator iRef; 
+  iRMax = iR+npitch_min;
+  for(iR=r.begin()+npitch_min ; iR != r.begin()+npitch_max; iR++){
+    if(*iR>*iRMax){
       iRMax= iR;
     }
   
   }
     unsigned int lag = iRMax - r.begin();
 
+    //printf(" %d ",lag);
     
 
     float pot = 10 * log10(r[0]);
@@ -118,16 +120,16 @@ namespace upc {
     //You can print these (and other) features, look at them using wavesurfer
     //Based on that, implement a rule for unvoiced
     //change to #if 1 and compile
-   /* printf("%f\n", r[lag]);*/
+   
 
    FILE *rnorm= fopen("rnorm.txt","a");
    FILE *rnormmax = fopen("rnormmax.txt","a");
-
+    fprintf(rnorm,"%f\n",r[1]/r[0]);
+    fprintf(rnormmax, "%f\n",r[lag]/r[0]);
 #if 0
     if (r[0] > 0.0F){
       cout << pot << '\t' << r[1]/r[0] << '\t' << r[lag]/r[0] << endl;
-      fprintf(rnorm,"%f\n",r[1]/r[0]);
-      fprintf(rnormmax, "%f\n",r[lag]/r[0]);
+      
     }
 #endif
 
