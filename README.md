@@ -94,6 +94,17 @@ Ejercicios de ampliación
   * Optimización **demostrable** de los parámetros que gobiernan el detector, en concreto, de los que
     gobiernan la decisión sonoro/sordo.
   * Cualquier otra técnica que se le pueda ocurrir o encuentre en la literatura.
+  
+  
+  > Hemos implementado las dos tecnicas siguientes; filtrado de center-clipping para el preprocesado y filtrado de mediana para el postprocesado. Estan implementados de la siguiente manera. Nos gustaria comentar primeramente del center clipping que hemos decidido usarlo con offset, siendo xth 0.0005, valor que hemos creido oportuno al realizar una visualización previa de los valores que obteniamos sin ella. A parte también creemos oportuno comentar el hecho de que hemos decidido normalizar las muestras de x ya que estas nos daban un valor muy pequeño, y de este caso obteniamos valores más cercanos a 1 y -1.
+  
+  
+  > Por otro lado, para la realización del filtro de mediana, comparamos 3 muestras (la que nos encontramos, la siguiente y la anterior) y nos quedamos con el valor del medio. Para hacerlo principalmente lo que hacemos es calcularnos el máximo y el mínimo de los tres, y seguidamente los sumamos todos y restamos este máximo y mínimo, obteniendo así la muestra de valor central y decidimos que la muestra del filtro en esa posición será este valor.
+ 
+ ![](https://github.com/davilin98/P3/blob/Guardia-Linde/centralclipping.JPG)
+ 
+ ![](https://github.com/davilin98/P3/blob/Guardia-Linde/filtromediana.JPG)
+  
 
   Encontrará más información acerca de estas técnicas en las [Transparencias del Curso](https://atenea.upc.edu/pluginfile.php/2908770/mod_resource/content/3/2b_PS Techniques.pdf)
   y en [Spoken Language Processing](https://discovery.upc.edu/iii/encore/record/C__Rb1233593?lang=cat).
