@@ -89,7 +89,7 @@ Ejercicios básicos
   		
   >Por otro lado hemos generdo una grafica en MATLAB con los resultados de nuestro programa almacenados en el fichero f0 y hemos obtenido lo siguiente.
   
-  
+  >![](https://github.com/davilin98/P3/blob/Guardia-Linde/f0sb014.png)
 
 
 Ejercicios de ampliación
