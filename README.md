@@ -38,7 +38,7 @@ Ejercicios básicos
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
    
- > Para la definición de las reglas hemos decidido observar los resultados que se obtenian en los ficheros txt generados y hemos decidido fijar como detector una potencia superior a -25, una r1norm superior a  0.75  y una r1normax inferior a 0.2 . El resultado obtenido es de 0,84%.
+ > Para la definición de las reglas hemos decidido observar los resultados que se obtenian en los ficheros txt generados y hemos decidido fijar como detector una potencia superior a -25, una r1norm superior a  0.75  y una r1normax inferior a 0.2 . El resultado obtenido es de 84%.
  
    ![](https://github.com/davilin98/P3/blob/Guardia-Linde/unvoiced1.JPG)
    ![](https://github.com/davilin98/P3/blob/Guardia-Linde/resultado1.JPG)
