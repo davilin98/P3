@@ -84,9 +84,10 @@ Ejercicios básicos
   > Para este apartado realizaremos la detección de pitch para el fichero sb014.wav porque es más corto y se puede observar mejor el resultado.
   
   >Por un lado del wavesurfer obtenemos lo siguiente:
-  	
-	![](https://github.com/davilin98/P3/blob/Guardia-Linde/wavesurfer.JPG)
-	
+  
+        ![](https://github.com/davilin98/P3/blob/Guardia-Linde/wavesurfer.JPG)
+  
+  		
   >Por otro lado hemos generdo una grafica en MATLAB con los resultados de nuestro programa almacenados en el fichero f0 y hemos obtenido lo siguiente:
   
 
