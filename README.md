@@ -63,10 +63,14 @@ Ejercicios básicos
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.
+		
+		
   
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
+	
+![](https://github.com/davilin98/P3/blob/Guardia-Linde/90.PNG)
 
    * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
