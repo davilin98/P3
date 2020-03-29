@@ -38,9 +38,10 @@ Ejercicios básicos
 
    * Implemente la regla de decisión sonoro o sordo e inserte el código correspondiente.
    
- > Primeramente habíamos decidido unas reglas muy a ojo que nos proporcionaban una detección del 15%. Al observarlo más detalladamente hemos ido cambiando estos valores y hemos finalmente decidido los siguientes valores, bteniendo asi un 90% de detección.
-   
-   ![](https://github.com/davilin98/P3/blob/Guardia-Linde/unvoiced.JPG)
+ > Para la definición de las reglas hemos decidido observar los resultados que se obtenian en los ficheros txt generados y hemos decidido fijar como detector una potencia superior a -25, una r1norm superior a  0.75  y una r1normax inferior a 0.2 . El resultado obtenido es de 0,84%.
+ 
+   ![](https://github.com/davilin98/P3/blob/Guardia-Linde/unvoiced1.JPG)
+   ![](https://github.com/davilin98/P3/blob/Guardia-Linde/resultado1.JPG)
    
 - Una vez completados los puntos anteriores, dispondrá de una primera versión del detector de pitch. El 
   resto del trabajo consiste, básicamente, en obtener las mejores prestaciones posibles con él.
@@ -63,14 +64,10 @@ Ejercicios básicos
       - Use el detector de pitch implementado en el programa `wavesurfer` en una señal de prueba y compare
 	    su resultado con el obtenido por la mejor versión de su propio sistema.  Inserte una gráfica
 		ilustrativa del resultado de ambos detectores.
-		
-		
   
   * Optimice los parámetros de su sistema de detección de pitch e inserte una tabla con las tasas de error
     y el *score* TOTAL proporcionados por `pitch_evaluate` en la evaluación de la base de datos 
 	`pitch_db/train`..
-	
-![](https://github.com/davilin98/P3/blob/Guardia-Linde/90.PNG)
 
    * Inserte una gráfica en la que se vea con claridad el resultado de su detector de pitch junto al del
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
@@ -79,6 +76,7 @@ Ejercicios básicos
 	 >Tal y como se observa cuando el segmento es sonoro y por lo tanto periodico, se puede observar que la potencia es alta, r1norm es bajo, entorno de 0,3 y que r1normax es alto, entorno del 0,8. Resultados del todo esperados con lo que habíamos comprobado con nuestro programa. Esta vez hemos decidido utilizar como parametros (0.89, -37 y 0.33). Obteniendo un resultado de 90,36%. 
 		
       ![](https://github.com/davilin98/P3/blob/Guardia-Linde/unvoiced.JPG)
+      ![](https://github.com/davilin98/P3/blob/Guardia-Linde/resultado.JPG)
 
 
 Ejercicios de ampliación
