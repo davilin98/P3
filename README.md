@@ -72,9 +72,10 @@ Ejercicios básicos
      detector de Wavesurfer. Aunque puede usarse Wavesurfer para obtener la representación, se valorará
 	 el uso de alternativas de mayor calidad (particularmente Python).
 	 
-	 >Tal y como se observa cuando el segmento es sonoro y por lo tanto periodico, se puede observar que la potencia es alta, r1norm es bajo, entorno de 0,3 y que r1normax es alto, entorno del 0,8. Resultados del todo esperados con lo que habíamos comprobado con nuestro programa. Esta vez hemos decidido utilizar como parametros (...). 
+	 >Tal y como se observa cuando el segmento es sonoro y por lo tanto periodico, se puede observar que la potencia es alta, r1norm es bajo, entorno de 0,3 y que r1normax es alto, entorno del 0,8. Resultados del todo esperados con lo que habíamos comprobado con nuestro programa. Esta vez hemos decidido utilizar como parametros (0.89, -37 y 0.33). Obteniendo un resultado de 90,36%. 
 		
-   
+      ![](https://github.com/davilin98/P3/blob/Guardia-Linde/unvoiced.JPG)
+
 
 Ejercicios de ampliación
 ------------------------
