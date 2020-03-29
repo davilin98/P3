@@ -90,7 +90,8 @@ Ejercicios básicos
   >Por otro lado hemos generdo una grafica en MATLAB con los resultados de nuestro programa almacenados en el fichero f0 y hemos obtenido lo siguiente.
   
   >![](https://github.com/davilin98/P3/blob/Guardia-Linde/f0sb014.png)
-
+  
+  > Tal y como se observa, la gráfica generada por MATLAB tiene la misma forma que el el contorno del pitch que te ofrece wavesurfer. A parte los valores són muy similares, por lo que podemos concluir que nuestro detector de pitch és muy bueno.
 
 Ejercicios de ampliación
 ------------------------
@@ -139,6 +140,13 @@ Ejercicios de ampliación
   También se valorará la realización de un estudio de los parámetros involucrados. Por ejemplo, si se opta
   por implementar el filtro de mediana, se valorará el análisis de los resultados obtenidos en función de
   la longitud del filtro.
+  
+
+> CONCLUIONES:
+
+	> Finalmente, nos gustaría realizar un pequeño comentario sobre la práctica. Nos gustaría destacar que hemos tenido problemas a la hora de evaluar los resultados porque nos salían valores no normalizados y nos pensabamos que el resultado era erróneo. A medida que ibamos haciendo nos hemos dado cuenta de este pequeño detalle y hemos decidido normalizar todos los valores obteniendo valores mucho más diferenciados e interpretables.
+	>A parte, nos gustaría destacar que la elección de los parámetros inicialmente era del todo a ojo, hecho que nos permitía obtener un resultado bueno, aunque muy mejorable. A la hora de analizar bien los resultados con el wavesurfer nos ha permitido obtener parametros mucho más detallados y hemos podido llegar a obtener un 90% de detección de pitch, resultado el cual creemos que es muy bueno.
+	
    
 
 Evaluación *ciega* del detector
