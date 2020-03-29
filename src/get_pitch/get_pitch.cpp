@@ -7,9 +7,8 @@
 
 #include "wavfile_mono.h"
 #include "pitch_analyzer.h"
-
-#include "docopt.h"
 #include "math.h"
+#include "docopt.h"
 
 #define FRAME_LEN   0.030 /* 30 ms. */
 #define FRAME_SHIFT 0.015 /* 15 ms. */
@@ -66,8 +65,7 @@ int main(int argc, const char *argv[]) {
   /// Preprocess the input signal in order to ease pitch estimation. For instance,
   /// central-clipping or low pass filtering may be used.
 
-  float max=0;
-  
+  float max =0;
   for (unsigned int i=0; i< x.size(); i++){
     if (max < x[i]){
       max=x[i];
@@ -81,12 +79,12 @@ int main(int argc, const char *argv[]) {
     x[j]=x[j]/max;      //normalitzem el valor, tindrem valors de -1 a 1 però més elevats.
 
     if(x[j]>llindar){
-      x[j]= x[j]-llindar;
+       x[j]= x[j]-llindar;
     }else if(x[j]<llindar){
-      x[j] += llindar;
+       x[j] += llindar;
     } else{
-      x[j]=0;
-    }
+       x[j]=0;
+    } 
 
   }
 
@@ -99,30 +97,32 @@ int main(int argc, const char *argv[]) {
     f0.push_back(f);
   }
 
-
   /// \TODO
   /// Postprocess the estimation in order to supress errors. For instance, a median filter
   /// or time-warping may be used.
 
   //Trobem el minim i el maxim sumem els 3 i restem minim i el maxim i ens queda la mediana.
 
-  float min1, min2, max1, max2;
-  vector<float> filtro;
-  min1=fmin(f0[0],f0[1]);
-  max1=fmax(f0[0],f0[1]);
-  filtro[0]= f0[0]+f0[1]-max1-min1
-  ;
-  for(unsigned int i=1; i < f0.size()-1 ; i++){
+ float min1=0, min2=0, max1=0, max2=0;
+  //int sizef0 = static_cast<int>(f0.size());
+  vector<float> filter;
+  filter = f0;
+
+   min1=fmin(f0[0],f0[1]);
+   max1= fmax(f0[0],f0[1]);
+   filter[0]= f0[0]+f0[1]-min1-max1;
+
+  for( unsigned int i=1; i < f0.size()-1 ; i++){
+
     min1=fmin(f0[i-1],f0[i]);
     min2=fmin(min1,f0[i+1]);
-
     max1= fmax(f0[i-1],f0[i]);
     max2 = fmax(max1,f0[i+1]);
-
-    filtro[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2;
+    filter[i]= f0[i-1]+f0[i]+f0[i+1]-min2-max2; 
   }
 
-f0=filtro; //el convertim amb el filtro mediana.
+  f0=filter;
+  //el convertim amb el filtro mediana.
 
 
   // Write f0 contour into the output file
